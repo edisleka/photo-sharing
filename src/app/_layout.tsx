@@ -28,6 +28,15 @@ export default function RootLayout() {
             ),
           }}
         />
+        <Stack.Screen
+          name='event'
+          options={{
+            title: 'Event',
+            headerTitleAlign: 'center',
+            headerTransparent: true,
+            headerShown: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   )

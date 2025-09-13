@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { uploadToCloudinary } from '../lib/cloudinary'
 
 export default function CameraScreen() {
   const [facing, setFacing] = useState<CameraType>('back')
@@ -41,7 +42,10 @@ export default function CameraScreen() {
   async function takePhoto() {
     console.log('takePhoto')
     const photo = await camera.current?.takePictureAsync()
-    console.log(JSON.stringify(photo, null, 2))
+    if (!photo?.uri) return
+
+    const cloudinaryResponse = await uploadToCloudinary(photo.uri)
+    console.log(JSON.stringify(cloudinaryResponse, null, 2))
   }
 
   return (
