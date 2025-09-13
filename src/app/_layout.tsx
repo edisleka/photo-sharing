@@ -1,5 +1,6 @@
 import { Stack } from 'expo-router'
 import { DarkTheme, ThemeProvider } from '@react-navigation/native'
+import '../../global.css'
 
 export default function RootLayout() {
   return (
