@@ -1,21 +1,32 @@
-import { View } from 'react-native'
-import { Link } from 'expo-router'
-import { useAuth } from '../providers/auth-provider'
+import { ActivityIndicator, FlatList, Text, View } from 'react-native'
+import { useQuery } from '@tanstack/react-query'
+import { getEvents } from '../services/events'
+import EventListItem from '../components/EventListITem'
 
 export default function HomeScreen() {
-  const { user, isAuthenticated } = useAuth()
+  const {
+    data: events,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['events'],
+    queryFn: () => getEvents(),
+  })
 
-  console.log('user: ', user)
-  console.log('isAuthenticated: ', isAuthenticated)
+  if (isLoading) {
+    return <ActivityIndicator size='large' color='red' />
+  }
+
+  if (error) {
+    return <Text>Error: {error.message}</Text>
+  }
 
   return (
-    <View className='flex-1 items-center justify-center gap-5'>
-      <Link href='/camera' className='text-white'>
-        Open Camera
-      </Link>
-      <Link href='/event' className='text-white'>
-        Event Details
-      </Link>
-    </View>
+    <FlatList
+      data={events}
+      renderItem={({ item }) => <EventListItem event={item} />}
+      contentContainerClassName='p-4 gap-4'
+      keyExtractor={(item) => item.id}
+    />
   )
 }

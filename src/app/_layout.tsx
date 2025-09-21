@@ -5,6 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { AuthProvider } from '../providers/auth-provider'
+import QueryProvider from '../providers/query-provider'
 
 export default function RootLayout() {
   useEffect(() => {
@@ -25,42 +26,44 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      <ThemeProvider value={DarkTheme}>
-        <Stack>
-          <Stack.Screen
-            name='index'
-            options={{
-              title: 'Events',
-              // headerTitleAlign: 'center',
-            }}
-          />
+      <QueryProvider>
+        <ThemeProvider value={DarkTheme}>
+          <Stack>
+            <Stack.Screen
+              name='index'
+              options={{
+                title: 'Events',
+                // headerTitleAlign: 'center',
+              }}
+            />
 
-          <Stack.Screen
-            name='camera'
-            options={{
-              title: 'Camera',
-              headerTitleAlign: 'center',
-              headerTransparent: true,
-              headerBlurEffect: 'dark',
-              headerRight: () => (
-                <Link href='/share' className='mx-2'>
-                  <Ionicons name='share-outline' size={24} color='white' />
-                </Link>
-              ),
-            }}
-          />
+            <Stack.Screen
+              name='camera'
+              options={{
+                title: 'Camera',
+                headerTitleAlign: 'center',
+                headerTransparent: true,
+                headerBlurEffect: 'dark',
+                headerRight: () => (
+                  <Link href='/share' className='mx-2'>
+                    <Ionicons name='share-outline' size={24} color='white' />
+                  </Link>
+                ),
+              }}
+            />
 
-          <Stack.Screen
-            name='event'
-            options={{
-              title: 'Event',
-              headerTitleAlign: 'center',
-              headerTransparent: true,
-              headerShown: false,
-            }}
-          />
-        </Stack>
-      </ThemeProvider>
+            <Stack.Screen
+              name='event'
+              options={{
+                title: 'Event',
+                headerTitleAlign: 'center',
+                headerTransparent: true,
+                headerShown: false,
+              }}
+            />
+          </Stack>
+        </ThemeProvider>
+      </QueryProvider>
     </AuthProvider>
   )
 }
