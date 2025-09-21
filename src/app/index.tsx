@@ -1,17 +1,12 @@
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { Link } from 'expo-router'
-import { supabase } from '../lib/supabase'
-import { useEffect } from 'react'
+import { useAuth } from '../providers/auth-provider'
 
 export default function HomeScreen() {
-  useEffect(() => {
-    supabase
-      .from('events')
-      .select('*')
-      .then(({ data }) => {
-        console.log(JSON.stringify(data, null, 2))
-      })
-  }, [])
+  const { user, isAuthenticated } = useAuth()
+
+  console.log('user: ', user)
+  console.log('isAuthenticated: ', isAuthenticated)
 
   return (
     <View className='flex-1 items-center justify-center gap-5'>

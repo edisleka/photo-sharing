@@ -4,9 +4,9 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start -- --clear",
-    "android": "expo start --android",
+    "android": "expo run:android",
     "gen": "npx supabase gen types typescript --linked > src/types/database.types.ts",
-    "ios": "expo start --ios",
+    "ios": "expo run:ios",
     "web": "expo start --web"
   },
   "dependencies": {
@@ -34,7 +34,9 @@
     "react-native-reanimated": "~4.1.0",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0",
-    "react-native-worklets": "0.5.1"
+    "react-native-worklets": "0.5.1",
+    "expo-system-ui": "~6.0.7",
+    "expo-dev-client": "~6.0.12"
   },
   "devDependencies": {
     "@types/aes-js": "^3.1.4",
