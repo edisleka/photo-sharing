@@ -38,14 +38,22 @@ export default function RootLayout() {
             />
 
             <Stack.Screen
-              name='camera'
+              name='events/[id]'
+              options={{
+                title: 'Event',
+                // headerTitleAlign: 'center',
+              }}
+            />
+
+            <Stack.Screen
+              name='events/[id]/camera'
               options={{
                 title: 'Camera',
                 headerTitleAlign: 'center',
                 headerTransparent: true,
                 headerBlurEffect: 'dark',
                 headerRight: () => (
-                  <Link href='/share' className='mx-2'>
+                  <Link href='/' className='mx-2'>
                     <Ionicons name='share-outline' size={24} color='white' />
                   </Link>
                 ),

@@ -10,11 +10,27 @@ import {
   View,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { uploadToCloudinary } from '../lib/cloudinary'
+import { uploadToCloudinary } from '@/lib/cloudinary'
+import { useLocalSearchParams } from 'expo-router'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { insertAsset } from '@/services/assets'
+import { useAuth } from '@/providers/auth-provider'
 
 export default function CameraScreen() {
   const [facing, setFacing] = useState<CameraType>('back')
   const [permission, requestPermission] = useCameraPermissions()
+
+  const { id } = useLocalSearchParams<{ id: string }>()
+  const { user } = useAuth()
+  const queryClient = useQueryClient()
+
+  const insertAssetMutation = useMutation({
+    mutationFn: (assetId: string) =>
+      insertAsset({ event_id: id, user_id: user?.id, asset_id: assetId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['events', id] })
+    },
+  })
 
   const camera = useRef<CameraView>(null)
 
@@ -40,12 +56,15 @@ export default function CameraScreen() {
   }
 
   async function takePhoto() {
-    console.log('takePhoto')
+    // console.log('takePhoto')
     const photo = await camera.current?.takePictureAsync()
     if (!photo?.uri) return
 
     const cloudinaryResponse = await uploadToCloudinary(photo.uri)
-    console.log(JSON.stringify(cloudinaryResponse, null, 2))
+    // console.log(JSON.stringify(cloudinaryResponse, null, 2))
+
+    // TODO: Save photo to event (database) assets table
+    insertAssetMutation.mutate(cloudinaryResponse.public_id)
   }
 
   return (
