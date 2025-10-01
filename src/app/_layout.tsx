@@ -61,6 +61,24 @@ export default function RootLayout() {
             />
 
             <Stack.Screen
+              name='events/[id]/share'
+              options={{
+                title: 'Share',
+                headerTitleAlign: 'center',
+                presentation: 'modal',
+              }}
+            />
+
+            <Stack.Screen
+              name='events/[id]/join'
+              options={{
+                title: 'Join Event',
+                headerTitleAlign: 'center',
+                presentation: 'modal',
+              }}
+            />
+
+            <Stack.Screen
               name='events/create'
               options={{
                 title: 'Create Event',

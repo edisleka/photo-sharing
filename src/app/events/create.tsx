@@ -11,7 +11,8 @@ export default function CreateEventScreen() {
   const queryClient = useQueryClient()
 
   const createEventMutation = useMutation({
-    mutationFn: () => createEvent({ name: eventName, owner_id: user?.id }),
+    mutationFn: () =>
+      createEvent({ name: eventName, owner_id: user?.id }, user?.id!),
     onSuccess: (data) => {
       setEventName('')
       queryClient.invalidateQueries({ queryKey: ['events'] })

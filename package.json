@@ -34,9 +34,12 @@
     "react": "19.1.0",
     "react-native": "0.81.4",
     "react-native-get-random-values": "^1.11.0",
+    "react-native-qr-svg": "^1.5.0",
+    "react-native-qrcode-svg": "^6.3.15",
     "react-native-reanimated": "~4.1.0",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0",
+    "react-native-svg": "^15.13.0",
     "react-native-worklets": "0.5.1"
   },
   "devDependencies": {

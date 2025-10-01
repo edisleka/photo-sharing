@@ -44,7 +44,21 @@ export default function EventDetailsScreen() {
 
   return (
     <View className='flex-1'>
-      <Stack.Screen options={{ title: event.name }} />
+      <Stack.Screen
+        options={{
+          title: event.name,
+          headerRight: () => (
+            <Link href={`/events/${id}/share`} asChild>
+              <Ionicons
+                name='share-outline'
+                size={24}
+                color='white'
+                className='mr-2 ml-2'
+              />
+            </Link>
+          ),
+        }}
+      />
       <FlatList
         data={event.assets}
         numColumns={2}

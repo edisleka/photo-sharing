@@ -7,19 +7,22 @@ import {
   View,
 } from 'react-native'
 import { useQuery } from '@tanstack/react-query'
-import { getEvents } from '../services/events'
+import { getEvents, getEventsForUser } from '../services/events'
 import EventListItem from '../components/EventListITem'
 import { Link } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { useAuth } from '../providers/auth-provider'
 
 export default function HomeScreen() {
+  const { user } = useAuth()
+
   const {
     data: events,
     isLoading,
     error,
   } = useQuery({
     queryKey: ['events'],
-    queryFn: () => getEvents(),
+    queryFn: () => getEventsForUser(user?.id!),
   })
 
   if (isLoading) {
